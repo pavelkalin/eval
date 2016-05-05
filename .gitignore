@@ -3,6 +3,7 @@ db.sqlite3
 
 # Mac OS X hidden files
 .DS_Store
+.idea*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
