@@ -10,4 +10,4 @@ class DemoTest(TestCase):
         self.assertEquals(3 - 2, 1)
 
     def test_mupltiplication(self):
-            self.assertEquals(2 * 2, 4)
+        self.assertEquals(2 * 2, 4)
