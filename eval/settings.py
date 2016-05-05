@@ -84,11 +84,7 @@ if DJANGO_MODE == 'production':
     import dj_database_url
 
     # Handles DB env variables on production
-    DATABASES = {
-        'default': {
-            dj_database_url.config()
-        }
-    }
+    DATABASES = {'default': dj_database_url.config()}
 else:
     DATABASES = {
         'default': {
