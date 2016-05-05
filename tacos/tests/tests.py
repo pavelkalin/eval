@@ -8,3 +8,6 @@ class DemoTest(TestCase):
 
     def test_substraction(self):
         self.assertEquals(3 - 2, 1)
+
+    def test_mupltiplication(self):
+            self.assertEquals(2 * 2, 4)
