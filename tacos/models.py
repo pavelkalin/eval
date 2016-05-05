@@ -88,6 +88,12 @@ class RecipeFavourite(TimeStampedModel):
         return ", ".join(
             [recipe.name1 for recipe in Recipe.objects.all().filter(recipefavourite_recipe_id=self.recipe)])
 
+    def get_user(self):
+        return self.user.get_name()
+
+    def get_recipe(self):
+        return self.recipe.get_name()
+
     def __str__(self):
         return self.recipe.get_name()
 
@@ -97,7 +103,6 @@ class Allergy(TimeStampedModel):
         Model for storing Allergies with severity of condition
     """
     user = models.ForeignKey(UserProfile, related_name="%(class)s_userprofile_id")
-    # user = models.ForeignKey(UserProfile)
     name = models.CharField(max_length=100)
     LOW = "LOW"
     MEDIUM = "MEDIUM"

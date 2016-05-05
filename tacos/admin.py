@@ -51,8 +51,19 @@ class AllergyAdmin(admin.ModelAdmin):
     get_user.short_description = "User"
 
 
+@admin.register(RecipeFavourite)
+class RecipeFavouriteAdmin(admin.ModelAdmin):
+    list_display = ("get_recipe", "get_user")
+
+    def get_user(self, obj):
+        return obj.get_user()
+
+    def get_recipe(self, obj):
+        return obj.get_recipe()
+
+    get_user.short_description = "User"
+    get_recipe.short_description = "Recipe name"
+
 admin.site.register(Step)
 admin.site.register(StepIngredient)
 admin.site.register(Ingredient)
-admin.site.register(RecipeFavourite)
-# admin.site.register(Allergy)
