@@ -1,14 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Recipe, Step, StepIngredient, Ingredient, UserProfile, Allergy
+from .models import Recipe, Step, StepIngredient, Ingredient, UserProfile, Allergy, RecipeFavourite
 from .forms import UserCreationForm
 
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     fieldsets = [
-        ("Recipes description", {"fields": ["description"]}),
+        ("Recipes description", {"fields": ["name", "description"]}),
         ("Recipes duration in minutes", {"fields": ["duration"]})
     ]
 
@@ -54,4 +54,5 @@ class AllergyAdmin(admin.ModelAdmin):
 admin.site.register(Step)
 admin.site.register(StepIngredient)
 admin.site.register(Ingredient)
-# admin.site.register(RecipeFavourite)
+admin.site.register(RecipeFavourite)
+# admin.site.register(Allergy)

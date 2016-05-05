@@ -17,6 +17,9 @@ class Recipe(TimeStampedModel):
     def list_directions(self):
         return ", ".join([step.directions for step in Step.objects.all().filter(recipe__id=self.id)])
 
+    def get_name(self):
+        return self.name
+
 
 class Step(TimeStampedModel):
     """
@@ -73,19 +76,21 @@ class UserProfile(models.Model):
         return "{} {}".format(self.user.first_name, self.user.last_name)
 
 
-# class RecipeFavourite(TimeStampedModel):
-#     """
-#         Model for storing recipes favourites
-#     """
-#     # recipe = models.ForeignKey(Recipe, related_name="%(class)s_recipe_id", on_delete=models.CASCADE)
-#     # user = models.ForeignKey(UserProfile, related_name="%(class)s_user_id", on_delete=models.CASCADE)
-#     #
-#     # def list_favourites(self):
-#     #     return ", ".join([recipe.name for recipe in Recipe.objects.all().filter(recipe__id=self.id)])
-#     #
-#     # def __str__(self):
-#     #     return self.list_favourites()
-#     pass
+class RecipeFavourite(TimeStampedModel):
+    """
+        Model for storing recipes favourites
+    """
+    recipe = models.ForeignKey(Recipe, related_name="%(class)s_recipe_id", on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, related_name="%(class)s_user_id", on_delete=models.CASCADE)
+
+    # TODO: change later
+    def list_favourites(self):
+        return ", ".join(
+            [recipe.name1 for recipe in Recipe.objects.all().filter(recipefavourite_recipe_id=self.recipe)])
+
+    def __str__(self):
+        return self.recipe.get_name()
+
 
 class Allergy(TimeStampedModel):
     """
