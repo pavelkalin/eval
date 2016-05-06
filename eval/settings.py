@@ -185,9 +185,9 @@ if DJANGO_MODE == 'production':
     EMAIL_USE_TLS = True
 
 if DJANGO_MODE == 'production':
-    import urlparse
+    from urllib.parse import urlparse
 
-    redis_url = urlparse.urlparse(os.environ.get('REDIS_URL'))
+    redis_url = urlparse(os.environ.get('REDIS_URL'))
     CACHES = {
         "default": {
             "BACKEND": "redis_cache.RedisCache",
