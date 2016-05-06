@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from tacos.core.models import TimeStampedModel
+from django.db.models import Q
+
 
 class UserProfile(models.Model):
     """
@@ -17,7 +19,6 @@ class UserProfile(models.Model):
         return "{} {}".format(self.user.first_name, self.user.last_name)
 
 
-
 class Recipe(TimeStampedModel):
     """
         Recipes data model
@@ -26,7 +27,7 @@ class Recipe(TimeStampedModel):
     description = models.TextField()
     duration = models.PositiveIntegerField()
     share = models.BooleanField(default=False)
-    user = models.OneToOneField(UserProfile)
+    user = models.ForeignKey(UserProfile)
 
     def __str__(self):
         return "Directions for {} are {}".format(self.name, self.list_directions())
@@ -36,6 +37,13 @@ class Recipe(TimeStampedModel):
 
     def get_name(self):
         return self.name
+
+    def get_user(self):
+        return self.user.get_name()
+
+    def list_shared(self, user_profile_id):
+        shared_recipes = [recipe for recipe in Recipe.objects.all().filter(Q(share=True) | Q(user=user_profile_id))]
+        return shared_recipes
 
 
 class Step(TimeStampedModel):
@@ -77,6 +85,14 @@ class StepIngredient(TimeStampedModel):
         return ", ".join(
             [ingredient.name for ingredient in Ingredient.objects.all().filter(stepingredient_ingredient_id=self.id)])
 
+    def get_ingredient(self):
+        return self.ingredient_id.get_name()
+
+    def get_user(self):
+        return self.recipe.get_user()
+
+    def get_recipe(self):
+        return self.recipe.get_name()
 
 
 class RecipeFavourite(TimeStampedModel):
