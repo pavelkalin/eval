@@ -184,16 +184,27 @@ if DJANGO_MODE == 'production':
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "SERIALIZER": "django_redis.serializers.json.JSONSerializer",
+if DJANGO_MODE == 'production':
+    import urlparse
+
+    redis_url = urlparse.urlparse(os.environ.get('REDIS_URL'))
+    CACHES = {
+        "default": {
+            "BACKEND": "redis_cache.RedisCache",
+            "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+            "OPTIONS": {
+                "PASSWORD": redis_url.password,
+                "DB": 0,
+            }
         }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'redis_cache.RedisCache',
+            'LOCATION': 'localhost:6379',
+        },
+    }
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
