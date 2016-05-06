@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View, DetailView
+from django.core.cache import cache
 from .models import Recipe, Ingredient
 
 
@@ -8,7 +9,7 @@ from .models import Recipe, Ingredient
 class IndexView(View):
     def get(self, request):
         recipes = Recipe.objects.all()
-
+        cache.set("foo", "value", timeout=25)
         context = {
             "recipes": recipes
         }
@@ -21,7 +22,8 @@ class RecipeList(View):
         recipes = Recipe.objects.all()
 
         context = {
-            "recipes": recipes
+            "recipes": recipes,
+            "test": cache.get("foo")
         }
 
         return render(request, "recipes.html", context)

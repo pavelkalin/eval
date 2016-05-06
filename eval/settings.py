@@ -183,3 +183,17 @@ if DJANGO_MODE == 'production':
     EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "SERIALIZER": "django_redis.serializers.json.JSONSerializer",
+        }
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
