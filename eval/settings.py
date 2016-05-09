@@ -41,10 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tacos',
+    'tastypie',
 ]
 
 if DJANGO_MODE == 'local':
     INSTALLED_APPS += ['debug_toolbar', ]
+    TASTYPIE_FULL_DEBUG = True
+
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',

@@ -22,7 +22,7 @@ class Command(BaseCommand):
             return False
 
     def handle(self, *args, **kwargs):
-        if (self.my_custom_sql()):
+        if self.my_custom_sql():
             self.stdout.write("Success")
         else:
             self.stdout.write("Error")

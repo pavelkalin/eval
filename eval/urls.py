@@ -13,16 +13,30 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from tacos.views import RecipeList, IngredientDetail, IndexView
 from django.contrib.auth import views as auth_views
+from tacos.api import UserProfileResource, UserResource
+from tastypie.api import Api
+
+v1_api = Api(api_name='v1')
+v1_api.register(UserProfileResource())
+v1_api.register(UserResource())
+
 urlpatterns = [
     # Auth
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^admin/', admin.site.urls),
+    url(r'^admin', admin.site.urls),
     url(r'^$', IndexView.as_view(), name='index'),
-    url(r'^recipes$', RecipeList.as_view(), name='recipes'),
+    url(r'^recipes/$', RecipeList.as_view(), name='recipes'),
+
+    #API section
+    url(r'^api/', include(v1_api.urls)),
+
+    #Catch all non existent pages
     url(r'^.*$', IndexView.as_view(), name='index'),
+
 ]
