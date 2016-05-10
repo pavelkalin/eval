@@ -17,12 +17,19 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from tacos.views import RecipeList, IngredientDetail, IndexView
 from django.contrib.auth import views as auth_views
-from tacos.api import UserProfileResource, UserResource
+from tacos.api import UserProfileResource, UserResource, RecipeResource, StepResource, AllergyResource, \
+    IngredientResource, RecipeFavouriteResource, StepIngredientResource
 from tastypie.api import Api
 
 v1_api = Api(api_name='v1')
 v1_api.register(UserProfileResource())
 v1_api.register(UserResource())
+v1_api.register(RecipeResource())
+v1_api.register(StepResource())
+v1_api.register(AllergyResource())
+v1_api.register(IngredientResource())
+v1_api.register(RecipeFavouriteResource())
+v1_api.register(StepIngredientResource())
 
 urlpatterns = [
     # Auth
@@ -33,10 +40,10 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^recipes/$', RecipeList.as_view(), name='recipes'),
 
-    #API section
+    # API section
     url(r'^api/', include(v1_api.urls)),
 
-    #Catch all non existent pages
+    # Catch all non existent pages
     url(r'^.*$', IndexView.as_view(), name='index'),
 
 ]

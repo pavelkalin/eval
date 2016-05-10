@@ -4,7 +4,7 @@ from tacos.core.models import TimeStampedModel
 from django.db.models import Q
 
 
-class UserProfile(models.Model):
+class UserProfile(TimeStampedModel):
     """
         Additional data about User
     """
