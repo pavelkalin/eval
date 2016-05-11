@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from tacos.views import RecipeList, IngredientDetail, IndexView
 from django.contrib.auth import views as auth_views
+
 from tacos.api import UserProfileResource, UserResource, RecipeResource, StepResource, AllergyResource, \
     IngredientResource, RecipeFavouriteResource, StepIngredientResource
+from tacos.views import RecipeList, IndexView, RecipeDetail
 from tastypie.api import Api
 
 v1_api = Api(api_name='v1')
@@ -39,6 +40,7 @@ urlpatterns = [
     url(r'^admin', admin.site.urls),
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^recipes/$', RecipeList.as_view(), name='recipes'),
+    url(r'^recipe/(?P<pk>[-\w]+)/$', RecipeDetail.as_view(), name='recipe-detail'),
 
     # API section
     url(r'^api/', include(v1_api.urls)),

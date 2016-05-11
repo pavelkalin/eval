@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ recipe.name }} </h2>
+
+    <div>{{ recipe.duration }}</div>
+    <div>{{ recipe.user.user.username }}</div>
+    <div>{% if recipe.share %}
+        Recipe is shared
+    {% else %}
+        Recipe is not shared
+    {% endif %}
+    </div>
+    <div>{{ recipe.description | linebreaks }}</div>
+{% endblock %}

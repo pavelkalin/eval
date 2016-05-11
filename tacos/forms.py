@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.forms import AuthenticationForm
+from django.forms.widgets import PasswordInput, TextInput
 
 
 class UserCreationForm(forms.ModelForm):
@@ -40,3 +42,10 @@ class UserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class RFPAuthForm(AuthenticationForm):
+    username = forms.CharField(widget=TextInput(attrs={'class': 'span2','placeholder': 'Email'}))
+    password = forms.CharField(widget=PasswordInput(attrs={'class': 'span2','placeholder':'Password'}))
+
+

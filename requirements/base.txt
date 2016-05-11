@@ -7,4 +7,5 @@ dj-static==0.0.6
 redis==2.10.5
 django-redis-cache==1.6.5
 django-tastypie==0.13.3
+django-widget-tweaks==1.4.1
 

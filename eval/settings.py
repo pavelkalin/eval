@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tacos',
     'tastypie',
+    'widget_tweaks',
 ]
 
 if DJANGO_MODE == 'local':
