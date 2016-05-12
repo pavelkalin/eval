@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_views
 
 from tacos.api import UserProfileResource, UserResource, RecipeResource, StepResource, AllergyResource, \
     IngredientResource, RecipeFavouriteResource, StepIngredientResource
-from tacos.views import RecipeList, IndexView, RecipeDetail
+from tacos.views import RecipeList, IndexView, RecipeDetail, IngredientList, AllergiesList, Recipe2Detail, RecipeNotView
 from tastypie.api import Api
 
 v1_api = Api(api_name='v1')
@@ -40,7 +40,11 @@ urlpatterns = [
     url(r'^admin', admin.site.urls),
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^recipes/$', RecipeList.as_view(), name='recipes'),
+    url(r'^ingredients/$', IngredientList.as_view(), name='ingredients'),
+    url(r'^allergies/$', AllergiesList.as_view(), name='allergies'),
     url(r'^recipe/(?P<pk>[-\w]+)/$', RecipeDetail.as_view(), name='recipe-detail'),
+    url(r'^recipe2/(?P<pk>[-\w]+)/$', Recipe2Detail.as_view(), name='recipe-detail2'),
+    url(r'^recipe-not/$', RecipeNotView.as_view(), name='recipe-not'),
 
     # API section
     url(r'^api/', include(v1_api.urls)),

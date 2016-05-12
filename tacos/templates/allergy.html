@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>My current allergies</h1>
+    <div class="col-md-6">
+        <table class="table table-striped">
+            {% for allergy in allergies %}
+                {% if allergy.severity == 'HI' %}
+                    <tr>
+                        <td class="danger">{{ allergy.name }} - {{ allergy.severity }}</td>
+                    </tr>
+                {% elif allergy.severity == 'MEDIUM' %}
+                    <tr>
+                        <td class="warning">{{ allergy.name }} - {{ allergy.severity }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td class="info">{{ allergy.name }} - {{ allergy.severity }}</td>
+                    </tr>
+                {% endif %}
+            {% empty %}
+                <li>You haven't added any allergies</li>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

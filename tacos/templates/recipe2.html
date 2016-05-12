@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1> {{ recipe.name }}
+                <small>
+                    {% if recipe.share %}
+                        <span class="glyphicon glyphicon-star" aria-hidden="true">shared</span>
+                    {% else %}
+                        <span class="glyphicon glyphicon-star-empty" aria-hidden="true">not shared</span>
+                    {% endif %}
+                </small>
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-7">
+                <h5>Description:</h5>
+                <p class="text-muted">{{ recipe.description }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <h5>List of ingredients:</h5>
+                <table class="table table-striped">
+
+                    {% for step in step_ingredients %}
+                        <tr>
+                            <td>
+                                {{ step.ingredient_id.name }} {% if step.ingredient_id.name in allergies %}
+
+                                <a href="{% url 'allergies' %}"><small class="alert-danger">allergy!</small> </a> {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <h5>List of directions:</h5>
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            Step:
+                        </td>
+                        <td>
+                            Duration:
+                        </td>
+                    </tr>
+                    {% for step in step_ingredients %}
+                        <tr>
+                            <td>
+                                {{ step.step_number.directions }}
+                            </td>
+                            <td>
+                                {{ step.step_number.duration }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

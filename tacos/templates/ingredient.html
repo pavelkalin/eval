@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-	{% if ingredient %}
-		{% include "ingredient-detail.html" %}
-	{% endif %}
+	<h1>Current added ingredients</h1>
+<ul>
+{% for ingredient in object_list %}
+    <li>{{ ingredient.name }}</li>
+{% empty %}
+    <li>No ingredients yet.</li>
+{% endfor %}
+</ul>
 {% endblock %}

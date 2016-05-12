@@ -31,4 +31,31 @@ body {
     -webkit-box-shadow: rgba(0, 0, 0, 0.20) 0 10px 10px;
     -moz-box-shadow: rgba(0, 0, 0, 0.20) 0 10px 10px;
     box-shadow: rgba(0, 0, 0, 0.20) 0 10px 10px;
+    margin-top: -20px;
+    margin-bottom: 0px;
+}
+
+.wrapper {
+. make-row();
+}
+
+.content-main {
+. make-lg-column(8);
+}
+
+.content-secondary {
+. make-lg-column(3);
+. make-lg-column-offset(1);
+}
+
+.footer {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+}
+
+.HI {
+
 }

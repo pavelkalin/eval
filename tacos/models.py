@@ -1,14 +1,15 @@
-from django.db import models
 from django.contrib.auth.models import User
-from tacos.core.models import TimeStampedModel
+from django.db import models
 from django.db.models import Q
+
+from tacos.core.models import TimeStampedModel
 
 
 class UserProfile(TimeStampedModel):
     """
         Additional data about User
     """
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     star = models.BooleanField(default=False, verbose_name="Starred?")
 
     # Override the __unicode__() method to return out something meaningful!
@@ -134,3 +135,6 @@ class Allergy(TimeStampedModel):
 
     def get_user(self):
         return self.user.get_name()
+
+    def get_allergies(self, user_profile_id):
+        return [allergy for allergy in Allergy.objects.all().filter(user=user_profile_id)]

@@ -1,8 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {{ test }}
     {% for recipe in recipes %}
-        <h2>{{ recipe.name }} </h2>
+
+        <div class="wrapper">
+            <div class="content-main"><h4>{{ recipe.name }} </h4></div>
+            <div class="content-secondary">
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ recipe.description }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <a href="{% url 'recipe-detail' recipe.pk %}">See details</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="clearfix"><br /></div>
+                </div>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}
